@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2016-01-23 02:53:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:58:27 +0000"/><title>43_dsPIC30 SPI Attempt</title></head><body>
+<br>
+<hr>
+<h1>43_dsPIC30 SPI Attempt</h1>
 <div>After getting PWM and digital I/O working on the dsPIC30.  I needed to start trying to get the SPI module working so that our PIC could communicate with the ADC.  Following online resources and the dsPIC30f4012 data sheet, I built a SPI_init() function (<i><b>Figure 1</b></i>), a SPI_read() function (<b>Figure 2</b><i>),</i> and a SPI_write() function (<i><b>Figure 3</b></i>).  </div>
 <div><br/></div>
-<div><img src="43_dsPIC30%20SPI%20Attempt.resources/PIC30%20SPI_init().png" height="770" width="1100"/></div>
+<div><img src="43_dsPIC30%20SPI%20Attempt.resources/PIC30%20SPI_init().jpg"/></div>
 <div><i><b>Figure 1:  dsPIC30 SPI_init() Function</b></i></div>
 <div><i><b><br/></b></i></div>
 <div><i><b><br/></b></i></div>
 <div><i><b><br/></b></i></div>
-<div><img src="43_dsPIC30%20SPI%20Attempt.resources/PIC30%20SPI_read().png" height="262" width="1084"/></div>
+<div><img src="43_dsPIC30%20SPI%20Attempt.resources/PIC30%20SPI_read().jpg"/></div>
 <div><i><b>Figure 2:  dsPIC30 SPI_read() Function</b></i></div>
 <div><i><b><br/></b></i></div>
 <div><i><b><br/></b></i></div>
 <div><i><b><br/></b></i></div>
-<div><img src="43_dsPIC30%20SPI%20Attempt.resources/PIC30%20SPI_write().png" height="160" width="998"/></div>
+<div><img src="43_dsPIC30%20SPI%20Attempt.resources/PIC30%20SPI_write().jpg"/></div>
 <div><i><b>Figure 3:  sPIC30 SPI_write() Function</b></i></div>
 <div><i><b><br/></b></i></div>
 <div>Monitoring the SCK and SDO pins with an oscilloscope, I wasn’t able to detect any clock signals or anything from the SPI system.  I decided not to spend too much more time trying to get the dsPIC30’s SPI system working since the dsPIC33 would be a bit different, probably with its own problems. Most of the SPI registers are very similar between the dsPIC30 and dsPIC33 though. </div>

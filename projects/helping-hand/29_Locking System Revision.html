@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2015-11-05 03:51:32 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:57:41 +0000"/><title>29_Locking System Revision</title></head><body>
+<br>
+<hr>
+<h1>29_Locking System Revision</h1>
 <div>In order to simplify the locking system for the finger segments, Devin has considered using motors located locally on the segments to lock the joints.  This would greatly simplify the problem we are dealing with when the surface length of the finger changes as it curls. </div>
 <div><br/></div>
 <div>With the current design, there is difficulty in ensuring that the system will lock/unlock properly as this length changes.  The wire that routes down to the fingers to lock the joints would need to change length along with the finger surfaces, and it seems overly complicated to account for that in addition to the variance in the distance change between each finger.  Having motors locally on the segments would completely eliminate this problem.  We have been able to find motors as small as 6mmx24mm that could fit <b>inside</b> the finger segments and provide a force to the lock mechanisms.  </div>

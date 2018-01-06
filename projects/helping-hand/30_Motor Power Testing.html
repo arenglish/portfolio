@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2015-11-08 17:35:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:57:44 +0000"/><title>30_Motor Power Testing</title></head><body>
+<br>
+<hr>
+<h1>30_Motor Power Testing</h1>
 <div>     With most of the peripheral designs for our primary electrical components already created, there were several components that particularly needed to be tested before deciding to use them in our final design.  Calculations based off of the 298:1 geared motor’s ideal operation characteristics showed that up to seven motors could be powered constantly by a ~5Ah battery for 14 hours with an expected average load of 1 lb.  </div>
 <div>     </div>
 <div>     In order to test if the motor (arrived in shipment from Pololu.com) would consume expected power in the range of load we expect from the device’s finger and wrist assemblies, I set up the motor in a simulation scenario.  The motor was secured in a stabilized vice clamp (<b>Fig. 1</b>).  Braided fishing line (.09mm, 10b) was secured to the motor shaft with a Klemheist Knot to keep the string’s point of attachment from sliding as the smooth shaft rotated.  An elastic band was attached to the string and fastened to another stable vice grip.  The band’s elasticity was unknown but was estimated to supply ~1lb of force within the first inch of being stretched.</div>
@@ -9,15 +12,15 @@
 <div><br/></div>
 <div>     </div>
 <div><br/></div>
-<div><img src="30_Motor%20Power%20Testing.resources/motor_setup.jpg" height="1536" width="2048"/></div>
+<div><img src="30_Motor%20Power%20Testing.resources/motor_setup.jpg"/></div>
 <div><b>Figure 1: Motor Current Test Setup</b></div>
 <div><b><br/></b></div>
 <div><br/></div>
 <div><b>(a)</b>  For the first test, 3V was applied to the motor and resistor series circuit.  As the motor retracted the string and stretched out the elastic band, the voltage over the resistor was measured and logged to a text file.  Calculations were then applied in Excel to convert the voltage to current resulting in the graph in <b>Figure 2</b>.  The idle current of the motor was around 25mA.  When the attached band began to stretch, the current started to rise.  The band was stretched until it was close to its maximum length of about 1ft.  It was estimated that the band was applying a little over 10lb force at this point (further tests with known weights will probably be done).  The half-way point between 0 lb and 10 lb applied force from the elastic band shows about 50mA of current drawn.  The calculation used to come up with a 5Ah battery used a 50mA estimation for motor current.  The motor is probably applying somewhere around 5 lb of force at this point, more than we expect to be applied on average.  At lower torques the batteries should last longer than the 14 hrs.</div>
-<div><img src="30_Motor%20Power%20Testing.resources/Current%20Graph.jpg" height="2549" width="3299"/></div>
+<div><img src="30_Motor%20Power%20Testing.resources/Current%20Graph.jpg"/></div>
 <div><b>Figure 2:  Graph of Motor Current as Elastic Force is Applied to Shaft</b></div>
 <div><b><br/></b></div>
 <div><b><br/></b></div>
 <div><b>(b)</b>  To get a better idea of the electrical power needed to open someone’s hand, I performed one test where the resistor voltage was measured as the motor shaft extended my finger.  I rested my arm about 1ft above the motor with my palm face up.  Attacking the motor string to the end of my index finger, I measured the resistor voltage as the motor extended my finger.  <b>Figure 3</b> shows the resulting graph.  As can be seen the motor current did not rise much past the idle current of ~25mA.  At the highest point, the motor pulled about 35mA, and this was just after my finger was fully extended and had just begun to extend outside of natural ROM (Range of Motion).</div>
-<div><img src="30_Motor%20Power%20Testing.resources/Finger%20Tension%20Current.jpg" height="2549" width="3299"/></div>
+<div><img src="30_Motor%20Power%20Testing.resources/Finger%20Tension%20Current.jpg"/></div>
 </body></html>

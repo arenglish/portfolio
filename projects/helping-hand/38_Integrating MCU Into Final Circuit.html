@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2016-01-10 19:35:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:58:11 +0000"/><title>38_Integrating MCU Into Final Circuit</title></head><body>
+<br>
+<hr>
+<h1>38_Integrating MCU Into Final Circuit</h1>
 <div>The MCU used for the device (dsPIC33EP512GM310) had not yet been included in circuit designs.  Following standard application layouts advised by the MCU’s data sheet, the circuit in <b>Figure 1</b> was created.    All the MCU’s power pins are connected to the 3.3V regulator and GND.  Additionally, bus lines were added connecting 10 PWM pins and 10 ON/OFF directional pins to the motor controller IC's, 10 ADC pins to the current monitoring IC’s, and 10 GPIO pins to the encoders affixed on the motors (may end up using 20 GPIO pins since each encoder provides 2 output pulses for direction indication).  A header connected to the MCU’s programming pins has also been placed in the schematicso that the Pickit 3 can be connected in the circuit after it’s built.  The circuit components on the left side of the image are user input switches which will allow a user to override the device’s AI if necessary in order to release the motor tension, lock device position, or extend device position. </div>
-<div><img src="38_Integrating%20MCU%20Into%20Final%20Circuit.resources/Final%20Circuit%20MCU.png" height="468" width="574"/></div>
+<div><img src="38_Integrating%20MCU%20Into%20Final%20Circuit.resources/Final%20Circuit%20MCU.jpg"/></div>
 <div><i><b>Figure 1:  MCU Circuit Including Input Switches, Basic MCU Layout, and Bus Lines To Motors</b></i></div>
 <div><br/></div>
 <div><br/></div>
 <div>The motor controller circuit had been built before Christmas Break but has not been included in notes yet (<b>Figure 2</b>).  The circuit shown drives and provides feedback for two motors.  The same circuit is duplicated five times for the ten motors.  The inverters, AND’s, and H-Bridges control the motors’ speed and direction using PWM and ON/OFF signals from the MCU.  The shunt resistor drops a small voltage depending on how much current the motors are drawing and the amplifiers will pre-amplify the voltage before it reaches the MCU to be read.</div>
-<div><img src="38_Integrating%20MCU%20Into%20Final%20Circuit.resources/Final%20Circuit%20Motors.png" height="235" width="658"/></div>
+<div><img src="38_Integrating%20MCU%20Into%20Final%20Circuit.resources/Final%20Circuit%20Motors.jpg"/></div>
 <div><i><b>Figure 2: Motor Controller Circuit for DC Motor Pair</b></i></div>
 <div><br/></div>
 <div><br/></div>
 <div><br/></div>
 <div>The current overall circuit is shown in <b>Figure 3</b>.  Footprints have been created for all of the peripheral components and IC’s, but we will most likely need to use smaller connectors in place of any headers shown in the schematic.  </div>
-<div><img src="38_Integrating%20MCU%20Into%20Final%20Circuit.resources/Final%20Circuit%20Picture.png" height="561" width="802"/></div>
+<div><img src="38_Integrating%20MCU%20Into%20Final%20Circuit.resources/Final%20Circuit%20Picture.jpg"/></div>
 <div><i><b>Figure 3: Full Circuit For Electrical Control System</b></i></div>
 </body></html>

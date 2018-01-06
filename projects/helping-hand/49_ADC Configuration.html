@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2016-02-03 03:10:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:58:45 +0000"/><title>49_ADC Configuration</title></head><body>
+<br>
+<hr>
+<h1>49_ADC Configuration</h1>
 <div>The ADC needed to be configured properly for long term use.  We probably will need it to be in “continuous conversion” mode, so that it continues converting values after the START/SYNC (0x0008) command is sent.  To do this, the WREG command is used to set the CM bit in the ADC’s Configuration Register 1 (<i><b>Figure 1</b>).</i></div>
-<div><img src="49_ADC%20Configuration.resources/ADC%20register.png" height="76" width="736"/></div>
+<div><img src="49_ADC%20Configuration.resources/ADC%20register.jpg"/></div>
 <div><br/></div>
 <div><i><b>Figure 1: ADC Register 0x01</b></i></div>
 <div><i><b><br/></b></i></div>
@@ -12,6 +15,6 @@
 <div><br/></div>
 <div>I may try to go back and get the SPI1 module to work.</div>
 <div><br/></div>
-<div><img src="49_ADC%20Configuration.resources/ADC_init().png" height="412" width="1212"/></div>
+<div><img src="49_ADC%20Configuration.resources/ADC_init().jpg"/></div>
 <div><i><b>Figure 2:  ADC Configuration Code</b></i></div>
 </body></html>

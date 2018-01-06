@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2015-11-15 04:24:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:57:49 +0000"/><title>32_H-Bridge Motor Control Tests</title></head><body>
+<br>
+<hr>
+<h1>32_H-Bridge Motor Control Tests</h1>
 <div>Now that the motor power had been tested, a circuit for controlling the motor direction and speed with one PWM signal and one directional signal needed to be designed.  A development PCB hadn’t been made for our H-bridge component yet, but because it is almost identical in functionality to other dual H-bridge chips, I used a TI SN754410NE from our stockroom to test this circuit.</div>
 <div><br/></div>
 <div>In our Microprocessors course, we used a circuit similar to that shown in <b>Figure 1</b> to have bidirectional speed control of DC motors.  As the circuit is set up in <b>Figure 1</b>, only one motor can be controller, but the right side of the chip can support another motor.  </div>
@@ -10,6 +13,6 @@
 <div>Controlling a motor with two of these xY outputs allows the motor direction to be changed by simply reversing the xA inputs’ values.  In order to use a PWM signal with bidirectional control, one xA could be held LOW while the other is given PWM.  To reverse direction, the first xA would be given PWM and the second one held LOW.  This is accomplished using one PWM and a direction control signal using 2 AND gates and one NOT for every motor, as shown in <b>Figure 1</b>. </div>
 <div><br/></div>
 <div>I built and tested this circuit, and, after some minor debugging found it to be functioning as expected.  For the PWM signal, I used a 5V square-wave from the Elvis Board; it only allowed for one motor speed though.  Using a circuit like this, all that is needed from the dsPIC for bidirectional speed control is one PWM signal and one HIGH/LOW signal for each motor.</div>
-<div><img src="32_H-Bridge%20Motor%20Control%20Tests.resources/Motor%20Driver%20Prot%20Circuit.png" height="523" width="669"/></div>
+<div><img src="32_H-Bridge%20Motor%20Control%20Tests.resources/Motor%20Driver%20Prot%20Circuit.jpg"/></div>
 <div><b>Figure 1:  Circuit for Bi-direcitonal Motor Control With H-Bridges</b></div>
 </body></html>

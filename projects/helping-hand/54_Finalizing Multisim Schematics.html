@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2016-02-12 23:35:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:59:00 +0000"/><title>54_Finalizing Multisim Schematics</title></head><body>
+<br>
+<hr>
+<h1>54_Finalizing Multisim Schematics</h1>
 <div>In order for the electrical housing enclosure to be built, I had to finalize all of the electrical control system’s schematics and Ultiboard layouts so that definite sizes could be used for the housing layout.  After initially trying to see how much space the current schematic would take up in Ultiboard, I decided to divide the control circuit up into a processing PCB and a motor control PCB, as both of them together were resulting in too large a board.  We had originally estimated that the circuit boards may take approximately 2x2 inches.  With the combined PCB, I wasn’t even able to fit the components onto a 2x4 in board.  <i><b>Figure 1</b></i> shows the resulting processing schematic and <i><b>Figure 2</b></i> the resulting motor control schematic (I decided to remove the current sensor amplifiers previously used to amplify the voltage from the motor shunt resistors; I would use a larger resistor instead to give the PIC33’s ADC more resolution for the signal range).  I was trying to avoid splitting the boards, since the headers needed to connect them would take up a lot of space as well.  However, I found some flex cables online that would work for signal I/O, greatly reducing header size.  I only had to use larger headers for the three power inputs to the motor board.</div>
 <div><br/></div>
-<div><img src="54_Finalizing%20Multisim%20Schematics.resources/Control%20Circuit%20Multisim.png" height="482" width="594"/></div>
+<div><img src="54_Finalizing%20Multisim%20Schematics.resources/Control%20Circuit%20Multisim.jpg"/></div>
 <div><i><b>Figure 1:  Processing Schematic</b></i></div>
 <div><i><b><br/></b></i></div>
 <div><i><b><br/></b></i></div>
-<div><img src="54_Finalizing%20Multisim%20Schematics.resources/Motor%20Circuit%20Multisim.png" height="501" width="676"/></div>
+<div><img src="54_Finalizing%20Multisim%20Schematics.resources/Motor%20Circuit%20Multisim.jpg"/></div>
 <div><i><b>Figure 2:  Motor Control Schematic</b></i></div>
 <div><br/></div>
 </body></html>
