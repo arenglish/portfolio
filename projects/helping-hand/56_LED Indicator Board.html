@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2016-02-16 22:34:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:59:05 +0000"/><title>56_LED Indicator Board</title></head><body>
+<div>To save on space, I decided to put all the LED system indicator components on a very small PCB that could be mounted to a side wall in the electronic enclosure and connected to the processing PCB with one small flex cable.  <i><b>Figure 1</b></i> shows the Multisim schematic for the LED board and <i><b>Figure 2</b></i> the current PCB layout.  The LED’s consume more power than it would be safe for the PIC to distribute so I had to use other IC components to relay power to them.  I should have used single transistors, but to save time I just used the same inverter gates I’ve used for the motor control schematic.  If the PIC sends and ON/OFF signal to the inverters, the inverters will relay the opposite signal to the LED using the power rails instead of the PIC’s I/O power.</div>
+<div><br/></div>
+<div><img src="56_LED%20Indicator%20Board.resources/LED%20Circuit%20Multisim.png" height="600" width="654"/></div>
+<div><i><b>Figure 1:  LED Board Schematic</b></i></div>
+<div><i><b><br/></b></i></div>
+<div><i><b><br/></b></i></div>
+<div><i><b><br/></b></i></div>
+<div><img src="56_LED%20Indicator%20Board.resources/LED%20Circuit%20Ultiboard.png" height="334" width="713"/></div>
+<div><i><b>Figure 2:  LED Board PCB Layout (0.5 x 1.0 in)</b></i></div>
+<div><br/></div>
+</body></html>

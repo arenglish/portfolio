@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2015-11-19 01:42:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:57:56 +0000"/><title>34_Breakout PCB Finalization &amp; Setup</title></head><body>
+<div>The printed breakout PCB’s for our dsPIC, ADC, H-Bridge, and regulators still had some processing before we could start using them in prototype circuits.  Before headers and components could be soldered onto the PCB’s, they had to be coated in an insulating enamel which would cover all the board’s traces but leave mounting points open for soldering pieces onto.  </div>
+<div><br/></div>
+<div>The dsPIC board was not processed yet since it contains vias which must undergo another process of plating the through-holes.  The board containing our secondary components (ADC, H-bridges, regulators) was processed with the enamel (<b>Fig. 1</b>) and was ready to have components soldered onto it.</div>
+<div><br/></div>
+<div><img src="34_Breakout%20PCB%20Finalization%20&amp;%20Setup.resources/IMG_20151118_194349.jpg" height="1536" width="2048"/></div>
+<div><b>Figure 1:  PCB Containing Pinout Boards for ADC, Dual H-Bridge, and 2 Regulators</b></div>
+<div><br/></div>
+<div><br/></div>
+<div><br/></div>
+<div>The individual pinout boards were cut out from the larger board (<b>Fig. 2</b>).</div>
+<div><img src="34_Breakout%20PCB%20Finalization%20&amp;%20Setup.resources/IMG_20151118_200710.jpg" height="1536" width="2048"/></div>
+<div><b>Figure 2:  Separated Pinout Boards</b></div>
+<div><b><br/></b></div>
+<div><b><br/></b></div>
+<div><b><br/></b></div>
+<div><b><br/></b></div>
+<div>I started first with the our switching regulator component.  It and the ADC were the only components I could possibly place by hand since they were “large” enough; their pins also had leads whereas the other two components didn’t.  To apply solder to the component pads, I used our manual precision soldering machine.  The switching regulator placed on top of the soldered pads is shown in <b>Figure 3</b>.</div>
+<div><br/></div>
+<div><img src="34_Breakout%20PCB%20Finalization%20&amp;%20Setup.resources/IMG_20151118_204005.jpg" height="1536" width="2048"/></div>
+<div><b>Figure 3:  Switching Regulator Component Placed on Solder Pasted Pads</b></div>
+<div><b><br/></b></div>
+<div><b><br/></b></div>
+<div><b><br/></b></div>
+<div>After placing the piece on the solder paste, I baked it in the reflow oven to solidify the solder paste.  Unfortunately, I left it in just long enough to melt the PCB material (<b>Fig. 4</b>).  The chip did not look damaged, so I removed the chip and will create another PCB for it later.</div>
+<div><img src="34_Breakout%20PCB%20Finalization%20&amp;%20Setup.resources/IMG_20151118_210641.jpg" height="1536" width="2048"/></div>
+<div><b>Figure 4:  Burnt PCB (Switching Regulator)</b></div>
+<div><br/></div>
+<div><br/></div>
+<div>I moved on to the ADC pinout board.  I would just try to reflow the solder manually with a soldering iron instead of baking it (need to learn more about reflow baking).  Applying solder paste manually was more difficult for the smaller ADC pins(<b>Fig. 5</b>).</div>
+<div><br/></div>
+<div><img src="34_Breakout%20PCB%20Finalization%20&amp;%20Setup.resources/IMG_20151118_205126_hdr.jpg" height="1536" width="2048"/></div>
+<div><b>Figure 5: ADC Pads With Solder Paste Applied</b></div>
+<div><br/></div>
+<div><br/></div>
+<div><br/></div>
+<div><br/></div>
+<div>After setting the chip on the pads, I touched the soldering iron to the pads to melt the paste around the ADC pins (<b>Fig. 6</b>).  This process wasn’t perfect (<b>Fig. 7</b>), but I tested connectivity for all the pins to make sure none of the pads were shorting each other and that all the connections were made.  The chip appeared to be fine after using the soldering iron to reflow it, but I’ll need to check to make sure it wasn’t damaged by the heat.</div>
+<div><img src="34_Breakout%20PCB%20Finalization%20&amp;%20Setup.resources/IMG_20151118_215411.jpg" height="1536" width="2048"/></div>
+<div><b>Figure 6:  ADC With Solder Paste Reflowed</b></div>
+<div><b><br/></b></div>
+<div><b><br/></b></div>
+<div><br/></div>
+<div><img src="34_Breakout%20PCB%20Finalization%20&amp;%20Setup.resources/IMG_20151118_221258.jpg" height="1536" width="2048"/></div>
+<div><b>Figure 7:  Side View of Reflowed Pads </b></div>
+<div><br/></div>
+<div><br/></div>
+<div>I attached headers to the PCB (<b>Fig. 8</b>), and now it’s ready to test in a breadboard.  Once the dsPIC is mounted, communication between it and the ADC can be set up. </div>
+<div><br/></div>
+<div>Although the breakout boards for the components do not totally represent the area of the peripheral circuits for the final combined board, they provide a general estimation of how much space the final board will require.  This will be helpful for Devin and Patrick as they are building the SolidWorks model for the electrical housing assembly that will sit on the forearm.  With tight space in the assembly, the PCB will probably have to be shaped to a specific contour, not just a rectangle.  </div>
+<div><br/></div>
+<div><img src="34_Breakout%20PCB%20Finalization%20&amp;%20Setup.resources/IMG_20151118_221329.jpg" height="1536" width="2048"/></div>
+<div><b>Figure 8:  Breadboard-ready ADC</b></div>
+</body></html>

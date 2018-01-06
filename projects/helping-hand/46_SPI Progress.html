@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2016-01-29 23:29:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:58:34 +0000"/><title>46_SPI Progress</title></head><body>
+<div>Today I worked more on trying to get a SPI (Serial Peripheral Interface) set up between out MCU and external ADC.  Previously, the dsPIC30 was being used to try to communicate with the ADC.  Now we can use the dsPIC33.</div>
+<div><br/></div>
+<div>It turns out that the data sheet for the dsPIC33 happened to be more detailed than the one for the dsPIC30, so setting up a SPI interface was more straightforward.  Following general SPI setup example in one of the dsPIC33E family datasheets, a SPI initialization function was created (<i><b>Figure 1</b></i>).  After calling this function, any data written to the SPI1BUF register can be observed on an oscilloscope being output one bit at a time on the SPI1 module’s output pin, SDO1.  <i><b>Figure 2</b></i> shows the hexadecimal number 0x0008 being sent out from the SPI module by writing a 0x0008 to the SPI1BUF register.</div>
+<div><img src="46_SPI%20Progress.resources/Screen%20Shot%202016-01-30%20at%2011.44.31%20PM.png" height="824" width="1318"/></div>
+<div><i><b>Figure 1: SPI Initialization Function</b></i></div>
+<div><i><b><br/></b></i></div>
+<div><i><b><br/></b></i></div>
+<div><img src="46_SPI%20Progress.resources/IMG_20160203_192612.jpg" height="1536" width="2048"/></div>
+<div><i><b>Figure 2:  SPI1 Module Outputting a START/SYNC Command (0x0008)</b></i></div>
+<div><i><b><br/></b></i></div>
+<div>According to the ADC’s data sheet (ADS1120), sending a 0x08 command to the module will tell it to begin converting (START/SYNC).  It is in “single-shot” mode by default, meaning that this command must be sent for each analog value converted.  Later, the ADC will probably be set to “continuous mode” where conversions are continuous after the “begin” command.  The SPI module was set up with 16-bit communication form, but later I’ll try to modify the mode to 8-bit form when commands are being sent since the ADC accepts commands in 8-bit form.  Although a 16-bit command can be sent, the ADC will read the 2 bytes in the 16-bit word sequentially, meaning that sending a 0x0008 will first be read as a 0x08 (START/SYNC) then a 0x00 (nothing).</div>
+<div>So after sending a 0x0008, the ADC was observed outputting a binary signal as in <i><b>Figure 3</b></i>.  I had AIN0 plugged into +3.3V.  By default, the ADC uses its internal 2.048V reference, so it should read the 3.3V as the max value it can convert.  As shown in the image, the binary value sent was 0111 1111 1111 1111 (0x7FFF).  Because it’s signed binary, this value converts to a decimal value of +32767.  Scaling this value against the 2.048V reference (32767 * (2.048V/32767)) gives 2.048V.</div>
+<div><br/></div>
+<div><img src="46_SPI%20Progress.resources/3.3V%20conversion.jpg" height="1204" width="1625"/></div>
+<div><i><b>Figure 3: ADC Converting 3.3V to Binary Signal</b></i></div>
+<div><i><b><br/></b></i></div>
+<div>Next I plugged the AIN0 pin into Ground.  It sent back the signal in <i><b>Figure 4</b></i>, 0x0000 which scaled to 0.0V.</div>
+<div><br/></div>
+<div><img src="46_SPI%20Progress.resources/0V%20conversion.jpg" height="1130" width="1556"/></div>
+<div><i><b>Figure 4:  ADC Converting 0.0V to Binary Signal</b></i></div>
+<div><i><b><br/></b></i></div>
+<div>Then, I plugged AIN0 into 0.1V and it sent the signal in <i><b>Figure 5</b></i>, 0x0767 which equals 1895 in decimal and scales to (1895 * (2.048V/32767)) = .118V.  I measured the actual voltage of the “0.1V signal” as .096V, so the ADC was off by about 22mV which will be a problem if it’s receiving un-amplified signals from the EMG system.  The ADC has an internal amplifier though, which will probably be used to hopefully reduce the effect of reading errors like this.</div>
+<div><br/></div>
+<div><img src="46_SPI%20Progress.resources/0.1V%20conversion.jpg" height="1100" width="1630"/></div>
+<div><i><b>Figure 5:  ADC Converting 0.1V to Binary Signal</b></i></div>
+<div><i><b><br/></b></i></div>
+<div>I tried plugging AIN0 into a negative voltage, and although it did convert the value properly, it began overheating.  It’s probably because I was only giving it an analog power range from 0 to 3.3V.</div>
+</body></html>

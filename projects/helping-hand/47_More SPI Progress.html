@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2016-01-31 21:55:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:58:37 +0000"/><title>47_More SPI Progress</title></head><body>
+<div>I was going to try to build the a PCB today for our motor control design so that we could test the actual surface-mount chips we’ll be using.  Previously we’ve used similar DIP package chips available in the lab stockrooms.  However, I found out that the SPI module was not actually receiving the data from the ADC; so I spent more time trying to fix that before moving on.</div>
+<div>Although the converted values were visible on the SDI1 pin (SPI1 module input pin / ADC output), the SPI modules receive buffer flag was never setting (SPIRBF = 1).  This meant that the receive buffer was never actually receiving the bits.  I thought there were several possible causes for this:</div>
+<div><b>- IC pin not connected to header socket</b></div>
+<div><b>- SPI_read() function not reading at correct time</b></div>
+<div><b>- physical SDI1 pin is being hogged by some other module as an output, preventing SPI1 from using it as an input</b></div>
+<div><b><br/></b></div>
+<div>I eliminated the first possibility by, checking that the physical IC pin had a connection to the header pin.  After that, I read more about the process of receiving data in the SPI module.  There's two virtual SPI buffers [<b>SPIxRXB (receive buffer)</b> &amp; <b>SPIxTXB (transmit buffer)</b>] and one actual buffer (<b>SPIxBUF</b>) as shown in <i><b>Figure 1</b></i>.  SPIxBUF shares both transmit and receive bits at certain times.  Any time data is written to SPIxBUF, bits are moved from SPIxTXB (which is actually inside SPIxBUF) to the output pin SDOx.  As output bits are shifted out with each clock pulse, data on the input pin SDIx is shifted into SPIxRXB (also actually inside SPIxBUF).  If 16-bit communication is being used, then after 8 clock pulses the SPIxBUF will consist of 8-bits of input data and 8-bits of output data.  Once a full 16 clock pulses have happened, all of the SPIxTXB bits should have been shifted out and all the SPIxRXB bits received and inside the SPIxBUF.  When all the bits have been written, the <b>SPITBF</b> flag (transmit buffer full) clears indicating that there are no more bits to write.  Also, the <b>SPIRBF</b> flag (receive buffer full) should set indicating that bits have been shifted in.  </div>
+<div><br/></div>
+<div><img src="47_More%20SPI%20Progress.resources/Screen%20Shot%202016-02-03%20at%208.42.44%20PM.png" height="896" width="732"/></div>
+<div><i><b>Figure 1:  SPI Module Register Diagram</b></i></div>
+<div><i><b><br/></b></i></div>
+<div>If information has been received while the SPIxRXB is already full, the SPIROV (overflow bit) will set and the SPIRBF bit will supposedly not set.  So in the read function, I checked to make sure that the SPIROV bit didn’t set, then would right a dummy byte to shift in input data, yet the SPIRBF bit would never set.  This would cause the program to get stuck in the while () loop.  I wasn’t able to resolve the problem after reading more about the SPI process to eliminate the possibility that the PIC was not reading data properly.  I noted that even if the read function were reading data at the wrong time (before the ADC sent data over), the SPIxRXB buffer should be full of ON bits making (0xFFFF), since the ADC’s output pin is HIGH when idle.  I thought this meant that some other module within the PIC33 must have been remapping the pin possibly preventing the SPI1 module from using it at all.  </div>
+<div><br/></div>
+<div><img src="47_More%20SPI%20Progress.resources/Screen%20Shot%202016-02-03%20at%208.48.25%20PM.png" height="586" width="1310"/></div>
+<div><i><b>Figure 2:  SPI1_read() function</b></i></div>
+<div><i><b><br/></b></i></div>
+<div><i><b><br/></b></i></div>
+</body></html>

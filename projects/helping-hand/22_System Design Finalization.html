@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455786)"/><meta name="author" content="Austin R English"/><meta name="created" content="2015-10-10 20:27:00 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2016-12-19 02:57:02 +0000"/><title>22_System Design Finalization</title></head><body>
+<div>Some of the primary design decisions that had to be made for my Level 3 Electrical/Control Subassembly were:</div>
+<div><br/></div>
+<div>(a) which motor actuation design would best fit our size requirement for the device and still supply enough force to extend a finger at low power consumption</div>
+<div><br/></div>
+<div>(b) which microprocessor would best fit our size requirement while accommodating EMG analog inputs as well as motor control &amp; feedback and user inputs</div>
+<div><br/></div>
+<div>(c) how motor feedback would be implemented, whether with self-contained servo feedback or external feedback on regular motors</div>
+<div><br/></div>
+<div>(A lot of system thought and design decisions were summarized in my System Design Report, so I will use some excerpts from my Individual System Design Report)</div>
+<div><br/></div>
+<div><br/></div>
+<div><u><b>Part a:</b></u></div>
+<div><u><b>excerpt {</b></u></div>
+<div>The primary requirements that had to be taken into account were: (a) device thickness of no more than 1 inch, (b) linear force of no less 500g supplied by each motor (roughly twice the force needed to extend a finger in our early tests), (c) feasible cost of no more than $30 per motor, (d) allows linear movement of no less than 30mm (10mm more than the change in distance needed to extend each finger in early tests), and (d) planar area required by actuation design needs to allow for six actuation components to be compactly housed in forearm assembly.</div>
+<div><span style="mso-tab-count:1">           </span> The four actuation systems considered were (a) a gear bar, (b) a screw shafted motor, (c) a rotating arm, and (d) a spooling shaft hub.<span style="mso-spacerun:yes"> </span> Figure 1 <span style="color: black;">below shows the outcome of weighing</span></div>
+<div>
+<div style="page-break-after:avoid">
+<div><img src="22_System%20Design%20Finalization.resources/Screen%20Shot%202015-10-15%20at%201.53.21%20AM.png" height="676" width="1712"/></div>
+</div>
+</div>
+<div><a name="_Ref432339469">Figure</a> 1: Decision Matrix for Actuation System</div>
+<div><br/></div>
+<div>the criteria for each system in a decision matrix.<span style="mso-spacerun:yes"> </span> Every system considered assumed that a string attached to the system would be the object of linear movement.<span style="mso-spacerun:yes"> </span> The major deciding points for each system were:</div>
+<div><br/></div>
+<div><b style="mso-bidi-font-weight:normal">Gear Bar:</b><span style="mso-spacerun:yes"> </span> The gear bar would require at least 60mm of linear space to provide the 30mm of linear movement, but could be accomplished fairly simply by attaching a geared hub to a motor shaft.</div>
+<div><br/></div>
+<div><b style="mso-bidi-font-weight:normal">Shaft Screw (Figure 2):<span style="mso-spacerun:yes"> </span></b> The smallest motors that could be found with threaded shafts were too large for the device; this meant that threaded shafts would have to be connected to the motor shaft with mounting hubs.<span style="mso-spacerun:yes"> </span> This would add another 10mm to the actuation assembly in addition to the length of the motor and 30mm of linear movement making this assembly about 70mm long for a 30mm length motor.</div>
+<div><br/></div>
+<div><img src="22_System%20Design%20Finalization.resources/IMG_20151015_020927.jpg" height="1536" width="2048"/></div>
+<div>Figure 2: Shaft Screw Actuation Concept</div>
+<div><br/></div>
+<div><b style="mso-bidi-font-weight:normal">Rotating Arm:</b><span style="mso-spacerun:yes"> </span> To achieve 30mm of linear motion with this assembly would need at least 15mm of space in addition to half the motor thickness.<span style="mso-spacerun:yes"> </span> Thinnest motor considered would make the total space needed 22mm leaving very little room for maintaining the 25.4 mm thickness of the device.</div>
+<div><br/></div>
+<div><b style="mso-bidi-font-weight:normal">Spooling Hub:</b><span style="mso-spacerun:yes"> </span> This assembly was initially not considered because of potential problems with tangling if the wire wrapped around the spool were to fall off the spool when tension was not present in the line.<span style="mso-spacerun:yes"> </span> In simplest form, however, a string could be attached to the rotating shaft (Figure 3) with the end of the shaft up against a wall-piece to prevent the string from ever falling off the end when un-tensioned.</div>
+<div><br/></div>
+<div><img src="22_System%20Design%20Finalization.resources/IMG_20151015_015958.jpg" height="1536" width="2048"/></div>
+<div>Figure 3: Spooling Actuation Design (spooling hub:top - spooling shaft:bottom)</div>
+<div><br/></div>
+<div>Without that problem, this system offered the best space efficiency as the string could simply be attached to the motor shaft and rotated around, linearly pulling the string.<span style="mso-spacerun:yes"> </span> The only space requirement would depend on the motor size.</div>
+<div><br/></div>
+<div>The Spooling Hub assembly was chosen as the method for linearly retracting a wire attached to the assembly (note: precision linear actuators were considered as well, but cost at least $70 per motor for the size needed).</div>
+<div><u><b>}</b></u></div>
+<div><br/></div>
+<div><br/></div>
+<div><u><b>Part b:</b></u></div>
+<div><span style="color: black;"><u><b>excerpt {</b></u></span></div>
+<div><span style="color: black;">A microcontroller would be needed for reading EMG signals as well as for controlling the motors, indication LED’s, and reading feedback data from the motors.<span style="mso-spacerun:yes"> </span> Three primary microcontrollers have been considered (</span>Figure 4<span style="color: black;">): the Arduino Micro, the Teensy 3.2 (Figure 5), and the Mojo v3 FPGA.<span style="mso-spacerun:yes"> </span> The Arduino and Teensy are roughly the same size at 18mm wide and about twice as long.<span style="mso-spacerun:yes"> </span> The FPGA was considerably larger, but was considered mostly for its ability to implement a filtering circuit on the FPGA chip.<span style="mso-spacerun:yes"> </span> Because of our unfamiliarity with FPGA’s and its size, it was decided that the benefit of consolidating our filter circuit did not offset the disadvantages enough to use the FPGA.<span style="mso-spacerun:yes"> </span> Between the Arduino and Teensy, the primary difference was that the Teensy was considerably more powerful with more GPIIO and analog I/O pins.<span style="mso-spacerun:yes"> </span> The lower power Arduino would conserve more battery life, but because processed EMG data is going to be analyzed constantly in addition to the other microcontroller functions, it was decided that the faster processing speed would outweigh extra power consumption.</span></div>
+<div>
+<div style="page-break-after:avoid">
+<div><br/></div>
+<div><img src="22_System%20Design%20Finalization.resources/Screen%20Shot%202015-10-15%20at%202.14.41%20AM.png" height="650" width="1432"/></div>
+</div>
+</div>
+<div><a name="_Ref432468762"><span style="font-size:11.0pt; font-family:Calibri;mso-ascii-theme-font:minor-latin;mso-fareast-font-family: Calibri;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font:minor-latin; mso-bidi-font-family:&quot;Times New Roman&quot;;mso-bidi-theme-font:minor-bidi; mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA">Figure</span></a> <span style="font-size: 15px;"><span style="font-family: Calibri;">4</span></span><span style="font-size:11.0pt;font-family:Calibri;mso-ascii-theme-font:minor-latin; mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-hansi-theme-font: minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;;mso-bidi-theme-font:minor-bidi; mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA">: Decision Matrix for Microcontrollers</span></div>
+<div><span style="font-size: 11pt;"><span style="font-family: Calibri;"><br/></span></span></div>
+<div><span style="font-size: 15px;"><span style="font-family: Calibri;"><u><b>}</b></u></span></span></div>
+<div><span style="font-size: 11pt;"><span style="font-family: Calibri;"><br/></span></span></div>
+<div><span style="font-size: 11pt;"><span style="font-family: Calibri;"><br/></span></span></div>
+<div><img src="22_System%20Design%20Finalization.resources/Screen%20Shot%202015-10-15%20at%202.18.46%20AM.png" height="700" width="522"/></div>
+<div>Figure 5: Teensy 3.2 Microcontroller Tentatively Chosen for device</div>
+<div><br/></div>
+<div><br/></div>
+<div><br/></div>
+<div><u><b>Part c:</b></u></div>
+<div>One of the primary factors determining the method for implementing motor feedback was the type of motor.  If a servo motor could be used, then motor feedback would be self contained in the motor and absolute positioning would be inherent in the motor’s operation (as long as its load limits aren’t exceeded). </div>
+<div><br/></div>
+<div>Other motors such as steppers and brushless DC motors would  require something like a potentiometer (similar to a servo’s) to keep track of the motor’s absolute position.  Encoders would be helpful in precision control of the motor movement, but they would only provide relative position feedback; this would work, but the default motor position (device is un-contracted) would need to be calibrated the first time the device was used, then from then on relative movement information would need to be tracked.  But this would easily become offset over time; so an absolute positioning feedback that can indicate a unique value for all motor rotational positions within some range would be needed.  Encoders may still be used, but if potentiometer feedback is precise enough, then they might not be needed.</div>
+<div><br/></div>
+<div>Some of the reasoning for not choosing servo or stepper motors to supply force to the actuation setup are explained in the following excerpt from my Individual System Design report: (note: stepper motors were the initial choice for the project because of their significantly higher torque at low speeds, but power consumption and size did not offset this advantage. Low powered geared DC motors could accomplish better results by sacrificing higher rpm which aren’t needed past 60rpm.)</div>
+<div><br/></div>
+<div><u><b>excerpt {</b></u></div>
+<div>
+<div style="text-indent:.5in">
+<div>The type of motor for rotating the spooling shaft needed to be chosen.<span style="mso-spacerun:yes"> </span> Below in Figure 6, the three primary motor types considered are shown.<span style="mso-spacerun:yes"> </span> One requirement that made it difficult to decide which kind of motor to use was the need for motor feedback.<span style="mso-spacerun:yes"> </span> Without feedback, it would difficult to prevent the motors from eventually getting offset from the expected rotation resulting from not knowing absolute position.<span style="mso-spacerun:yes"> </span> The particular motors being considered for each type (<b style="mso-bidi-font-weight:normal">Stepper</b>: <span style="mso-fareast-font-family: &quot;Times New Roman&quot;;mso-bidi-font-family:&quot;Times New Roman&quot;">S20STH30-0604A; <b style="mso-bidi-font-weight:normal">Geared DC</b>: 298:1 Micro Metal Gearmotor; <b style="mso-bidi-font-weight:normal">90 Degree Servo</b>: HiTEC 35065S) were mainly what the ratings in the matrix were based on.<span style="mso-spacerun:yes">  </span></span></div>
+</div>
+<div style="text-indent: .5in;">
+<div><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-bidi-font-family: &quot;Times New Roman&quot;">For the stepper and geared DC motors, external potentiometers would be needed to track their absolute position.<span style="mso-spacerun:yes"> </span> This would add length to the assembly and would require more wired connections between the motor assembly and Processor system.<span style="mso-spacerun:yes"> </span> Servo motors would be perfect in that they offer self-contained feedback so that the motor can reach an exact position on its own, only requiring the position to be chosen by the Processing system.<span style="mso-spacerun:yes"> </span> However, most servos only rotate 90 degrees.<span style="mso-spacerun:yes"> </span> Servos that can rotate multiple times are used for sailing winches and are not available in the micro size that is needed, and continuous rotation servos are only able to rotate continuously because the feedback potentiometer is removed or disconnected.<span style="mso-spacerun:yes"> </span> To be able to provide the 30mm of linear movement, either an arm attachment would be needed (but was ruled out earlier for space consideration) or the servo shaft would need to be geared up.<span style="mso-spacerun:yes"> </span> This would decrease the simplicity of the actuating assembly (Figure 7).</span></div>
+</div>
+<div style="page-break-after:avoid">
+<div><br/></div>
+<div><img src="22_System%20Design%20Finalization.resources/Screen%20Shot%202015-10-15%20at%202.42.18%20AM.png" height="686" width="1436"/></div>
+</div>
+</div>
+<div><a name="_Ref432344007">Figure</a> 6: Decision Matrix for Motor Type</div>
+<div><br/></div>
+<div><br/></div>
+<div><img src="22_System%20Design%20Finalization.resources/IMG_20151015_020044.jpg" height="1536" width="2048"/></div>
+<div>Figure 7: Gearing Up 90-Degree Servo Motors for more rotation</div>
+<div><br/></div>
+<div>
+<div style="text-indent:.5in">
+<div>Another consideration with these motors was rpm.<span style="mso-spacerun:yes"> </span> The device is intended to act very slowly on the user’s hand to prevent muscle tearing.<span style="mso-spacerun:yes"> </span> As a finger fully extends, its surface length undergoes a change of about 20-30mm in length.<span style="mso-spacerun:yes"> </span> In no less than three seconds, to obtain this linear motion in a string being wound around a 3mm shaft, the shaft would need to rotate between <span style="font-size:11.0pt;font-family:Calibri;mso-ascii-theme-font: minor-latin;mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin; mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;; mso-bidi-theme-font:minor-bidi;top:9.0pt;mso-text-raise:-9.0pt; mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA;"><img src="22_System%20Design%20Finalization.resources/657B22D1-A280-4334-BA74-850BCB3A4B68.png" height="24" width="194"/></span><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast"><span style="mso-spacerun:yes"> </span>and</span> <span style="font-size:11.0pt;font-family:Calibri;mso-ascii-theme-font: minor-latin;mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin; mso-hansi-theme-font:minor-latin;mso-bidi-font-family:&quot;Times New Roman&quot;; mso-bidi-theme-font:minor-bidi;top:9.0pt;mso-text-raise:-9.0pt; mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-language:AR-SA;"><img src="22_System%20Design%20Finalization.resources/50460407-E1AA-492E-8ECB-2B0D51FAB1E4.png" height="24" width="192"/></span><span style="mso-fareast-font-family:&quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast">.<span style="mso-spacerun:yes"> </span> Stepper motors could be made to go as slowly as needed by varying the time between steps.<span style="mso-spacerun:yes"> </span> On a geared DC motor, the RPM could be varied using PWM signals to vary the supply voltage in order to change the speed of rotation.<span style="mso-spacerun:yes"> </span> The particular geared DC motor previously mentioned runs at a nominal 45rpm at 6V, but could be adjusted as needed by varying the supply voltage from 0.5-9V (the manufacturers were able to decrease rpm on similar motors at 0.5V to 1/14 the nominal rpm).<span style="mso-spacerun:yes"> </span> A 90-degree servo motor’s rpm could be controlled similarly to how the stepper motor would be.<span style="mso-spacerun:yes"> </span> By changing the motor position in small steps, a gradient of rpm’s could be achieved instead of the nominal rpm at which the motor would travel to a given position.<span style="mso-spacerun:yes"> </span> Considering that our device will only need very low rpm levels, a very low-power geared DC motor with a very low gearing would best suit the device’s needs.<span style="mso-spacerun:yes"> </span> A stepper motor will not offer much power conservation by operating at a low speed (it will consume power even while sitting idly with no load).</span></div>
+</div>
+<div style="text-indent:.5in">
+<div><span style="mso-fareast-font-family: &quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast">The 90-degree servo and the geared DC motor tied on the Decision matrix, but geared DC motors were chosen for the device.<span style="mso-spacerun:yes"> </span> A geared DC motor and a servo are essentially the same device except the geared DC does not have absolute positioning feedback.<span style="mso-spacerun:yes"> </span> However, it was decided that implementing an external position feedback potentiometer on the geared DC motors would be simpler than gearing the servo motors up in order to obtain the rotational range of motion needed to contract the attached strings the maximum 30mm.<span style="mso-spacerun:yes"> </span> Additionally, the servos had a larger footprint than the geared DC’s.</span></div>
+</div>
+<div style="text-indent:.5in">
+<div><span style="mso-fareast-font-family: &quot;Times New Roman&quot;;mso-fareast-theme-font:minor-fareast"> </span><img src="22_System%20Design%20Finalization.resources/Screen%20Shot%202015-10-15%20at%203.21.01%20AM.png" height="1504" width="1982"/></div>
+</div>
+<div style="page-break-after:avoid">
+<div><a name="_Ref432463609"> Figure</a> 8: Concept Layout of Forearm Electronics Housing - Top</div>
+</div>
+</div>
+<div><br/></div>
+<div><span style="color: black;"><span style="mso-tab-count:1">           </span> In</span> Figure 8 <span style="color: black;">above, a conceptual layout of the electronics housing is pictured.<span style="mso-spacerun:yes"> </span> The motors pictured are the 298:1 geared DC motors mentioned earlier.<span style="mso-spacerun:yes"> </span> This layout is a flattened version of the actual housing.<span style="mso-spacerun:yes"> </span> Dividing the assembly along its horizontal axis, each half will be angled downwards to better conform to a user’s arm; the actual width of the assembly would probably be closer to 9-10cm.<span style="mso-spacerun:yes"> </span> The string is not shown in the diagram, but it would attach to the motor shafts and be routed through guides to the exit ports at the front of the assembly.</span></div>
+<div><span style="color: black;"><span style="mso-tab-count:1">           </span> With a height of 10mm, the geared DC motors may leave enough room to place PCB’s on the underside of the housing’s lid.<span style="mso-spacerun:yes"> </span> However, it is likely that the wide end of the housing will be extended out horizontally to make room for PCB’s since there’s still around 6cm of arm length not being used by the housing.</span></div>
+<div><span style="font-size: 12pt;"><br/></span></div>
+<div><u><b><span style="font-size: 12pt;">}</span></b></u></div>
+<div><span style="font-size: 11pt;"><span style="font-family: Calibri;"><br/></span></span></div>
+<div><span style="font-size: 11pt;"><span style="font-family: Calibri;"><br/></span></span></div>
+<div>
+<div style="text-indent:.5in">
+<div><br/></div>
+</div>
+</div>
+</body></html>
