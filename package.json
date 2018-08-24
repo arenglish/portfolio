@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "commitmsg": "commitlint -e $GIT_PARAMS",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "commit": "git-cz"
   },
   "release": {
     "analyzeCommits": "semantic-release-tamia/analyzeCommits",
