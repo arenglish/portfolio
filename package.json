@@ -1,6 +1,6 @@
 {
   "name": "arenglish",
-  "version": "0.0.0-development",
+  "version": "0.0.0-semantically-released",
   "description": "",
   "main": "links.js",
   "scripts": {
