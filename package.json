@@ -4,7 +4,14 @@
   "description": "",
   "main": "links.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "semantic-release": "semantic-release"
+  },
+  "release": {
+    "analyzeCommits": "semantic-release-tamia/analyzeCommits",
+    "generateNotes": "semantic-release-tamia/generateNotes",
+    "verifyRelease": "semantic-release-tamia/verifyRelease"
   },
   "repository": {
     "type": "git",
@@ -17,6 +24,10 @@
   },
   "homepage": "https://github.com/arenglish/arenglish.github.io#readme",
   "devDependencies": {
-    "semantic-release": "^15.9.9"
+    "@commitlint/cli": "^7.0.0",
+    "@commitlint/config-angular": "^7.0.1",
+    "@semantic-release/gitlab-config": "^4.0.0",
+    "semantic-release": "^15.9.9",
+    "semantic-release-tamia": "^2.2.4"
   }
 }
