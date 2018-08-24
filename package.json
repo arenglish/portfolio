@@ -11,7 +11,17 @@
   "release": {
     "analyzeCommits": "semantic-release-tamia/analyzeCommits",
     "generateNotes": "semantic-release-tamia/generateNotes",
-    "verifyRelease": "semantic-release-tamia/verifyRelease"
+    "verifyRelease": "semantic-release-tamia/verifyRelease",
+    "verifyConditions": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ],
+    "prepare": [
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git"
+    ]
   },
   "repository": {
     "type": "git",
@@ -26,8 +36,16 @@
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-angular": "^7.0.1",
+    "@semantic-release/changelog": "^3.0.0",
+    "@semantic-release/git": "^7.0.2",
     "@semantic-release/gitlab-config": "^4.0.0",
+    "cz-conventional-changelog": "^2.1.0",
     "semantic-release": "^15.9.9",
     "semantic-release-tamia": "^2.2.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
