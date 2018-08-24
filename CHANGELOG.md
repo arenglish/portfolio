@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/arenglish/arenglish.github.io/compare/v1.0.0...v1.1.0) (2018-08-24)
+
+
+### Features
+
+* **testing:** test feature ([2eedd5d](https://github.com/arenglish/arenglish.github.io/commit/2eedd5d))
+
 # 1.0.0 (2018-08-24)
 
 
