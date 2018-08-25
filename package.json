@@ -1,25 +1,12 @@
 {
   "name": "arenglish",
-  "version": "1.2.0",
+  "version": "0.0.0-development",
   "description": "",
   "main": "links.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "commitmsg": "commitlint -e $GIT_PARAMS",
     "semantic-release": "semantic-release",
     "commit": "git-cz"
-  },
-  "release": {
-    "verifyConditions": [
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      "@semantic-release/git"
-    ],
-    "prepare": [
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      "@semantic-release/git"
-    ]
   },
   "repository": {
     "type": "git",
