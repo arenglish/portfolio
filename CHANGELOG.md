@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/arenglish/arenglish.github.io/compare/v1.2.0...v1.3.0) (2018-08-24)
+
+
+### Features
+
+* **bundle:** feature Bundle ([1f0b661](https://github.com/arenglish/arenglish.github.io/commit/1f0b661))
+
 # [1.2.0](https://github.com/arenglish/arenglish.github.io/compare/v1.1.0...v1.2.0) (2018-08-24)
 
 
