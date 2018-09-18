@@ -61,6 +61,14 @@ const start = () => {
                 {
                     name: 'Almanac',
                     url: 'https://gecgithub01.walmart.com/eden/almanac'
+                },
+                {
+                    name: 'Desktop Library',
+                    url: 'https://gecgithub01.walmart.com/eden/eden-desktop-library-ng2'
+                },
+                {
+                    name: 'Icons',
+                    url: 'https://gecgithub01.walmart.com/eden/icons'
                 }
             ]
         },
