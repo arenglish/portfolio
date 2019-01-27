@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "prod": "portfolio-dcde8",
+    "default": "fir-demo-project"
+  }
+}

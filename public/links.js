@@ -8,6 +8,7 @@ const start = () => {
     let columns = [
         {
             name: 'Walmart',
+            icon: './images/links/walmart.png',
             links: [
                 {
                     name: 'Box',
@@ -40,19 +41,25 @@ const start = () => {
                 {
                     name: 'Cafe Menu',
                     url: 'http://eurestcafes.compass-usa.com/walmart/Pages/Menu.aspx?lid=b1'
+                },
+                {
+                    name: 'Betterworks',
+                    url: 'https://app.betterworks.com/app/#/goals?currentView=goals'
                 }
             ]
         },
         {
             name: 'Github',
+            icon: './images/links/github.png',
+            mainLink: 'https://gecgithub01.walmart.com/eden',
             links: [
                 {
                     name: 'gec.github',
                     url: 'https://gecgithub01.walmart.com/eden'
                 },
                 {
-                    name: 'Eden Docs',
-                    url: 'http://eden.dev.walmart.com/'
+                    name: 'Muse Docs',
+                    url: 'https://gecgithub01.walmart.com/eden/docs'
                 },
                 {
                     name: 'Almanac API',
@@ -61,62 +68,50 @@ const start = () => {
                 {
                     name: 'Almanac',
                     url: 'https://gecgithub01.walmart.com/eden/almanac'
+                }
+            ]
+        },
+        {
+            name: 'Looper',
+            icon: './images/links/looper.png',
+            links: [
+                {
+                    name: 'Almanac',
+                    url: 'https://ci.walmart.com/job/Eden/job/almanac-ui/'
                 },
                 {
                     name: 'Desktop Library',
-                    url: 'https://gecgithub01.walmart.com/eden/eden-desktop-library-ng2'
+                    url: 'https://ci.walmart.com/job/Eden/job/eden-desktop-library/'
                 },
                 {
                     name: 'Icons',
-                    url: 'https://gecgithub01.walmart.com/eden/icons'
+                    url: 'https://ci.walmart.com/job/Eden/job/icons/'
                 }
             ]
         },
         {
-            name: 'Eden',
+            name: 'JIRA',
+            icon: './images/links/jira.png',
+            mainLink: 'https://tracker.wal-mart.com/secure/RapidBoard.jspa?rapidView=1682&view=planning.nodetail&selectedIssue=EDEN-977',
             links: [
                 {
-                    name: 'Almanac API',
-                    url: 'http://almanac-api.eden.dev.walmart.com/'
+                    name: 'Almanac',
+                    url: 'https://tracker.wal-mart.com/secure/RapidBoard.jspa?rapidView=6159&quickFilter=22776'
                 },
                 {
-                    name: 'Eden Jira',
-                    url: 'https://tracker.wal-mart.com/secure/RapidBoard.jspa?rapidView=1682&projectKey=EDEN&view=planning.nodetail'
-                },
-                {
-                    name: 'Looper: Almanac',
-                    url: 'https://ci.walmart.com/job/Eden/job/almanac-ui/'
-                }
-            ]
-        },
-        {
-            name: 'Dev',
-            links: [
-                {
-                    name: 'localhost:8080',
-                    url: 'http://localhost:8080/'
-                },
-                {
-                    name: 'localhost:3030',
-                    url: 'http://localhost:3000/'
-                },
-                {
-                    name: 'LLDB',
-                    url: 'https://lldb.llvm.org/lldb-gdb.html'
-                },
-                {
-                    name: 'GNU Make',
-                    url: 'https://www.gnu.org/software/make/'
-                },
-                {
-                    name: 'CMake',
-                    url: 'https://cmake.org/install/'
+                    name: 'Almanac Bugs',
+                    url: 'https://tracker.wal-mart.com/secure/RapidBoard.jspa?rapidView=6159&quickFilter=22776&quickFilter=31277'
                 }
             ]
         },
         {
             name: 'Misc',
+            icon: './images/links/misc.png',
             links: [
+                {
+                    name: 'Slack Apps',
+                    url: 'https://api.slack.com/apps'
+                },
                 {
                     name: 'Bitrex',
                     url: 'https://bittrex.com/account/login'
@@ -137,18 +132,27 @@ const start = () => {
         },
         {
             name: 'Almanac',
+            icon: './images/links/almanac.png',
             links: [
                 {
-                    name: 'Client Repo',
-                    url: 'https://gecgithub01.walmart.com/eden/almanac'
+                    name: 'App Dev',
+                    url: 'https://almanac.eden.dev.walmart.com/'
                 },
                 {
-                    name: 'API Repo',
-                    url: 'https://gecgithub01.walmart.com/eden/almanac-api'
+                    name: 'App Stage',
+                    url: 'https://almanac.eden.stg.walmart.com/'
                 },
                 {
-                    name: 'JIRA Board',
-                    url: 'https://tracker.wal-mart.com/secure/RapidBoard.jspa?rapidView=6159&view=detail&selectedIssue=EDEN-549&quickFilter=22776'
+                    name: 'App Production',
+                    url: 'https://almanac.eden.walmart.com/'
+                },
+                {
+                    name: 'App Local',
+                    url: 'http://localhost:4200'
+                },
+                {
+                    name: 'App QA',
+                    url: 'http://slack-api-202311100-1-409734910.dev.sandbox.eden.qa.walmart.com:8080/spec-management/products'
                 },
                 {
                     name: 'Karma Testing Local',
@@ -160,9 +164,10 @@ const start = () => {
 
     let row = document.getElementById('tableRow');
     let headers = document.getElementById('tableHeaders');
+    headers.style.verticalAlign = 'bottom';
     let tableColumns = [];
     columns.map((col, index) => {
-        const columnElement = document.createElement('td');
+        let columnElement = document.createElement('td');
         col.links.map(link => {
             const linkElement = document.createElement('a');
             linkElement.setAttribute('href', link.url);
@@ -170,9 +175,24 @@ const start = () => {
             columnElement.appendChild(linkElement);
             columnElement.appendChild(document.createElement('br'));
         });
-        const headerElement = document.createElement('th');
-        headerElement.innerHTML = col.name;
-        headers.appendChild(headerElement);     
+        let headerElement = document.createElement('th');
+        headerElement.align = 'center';
+        if (col.icon) {
+            headerElement.innerHTML = `<div><img src="${col.icon}" style="height: auto; width: 50px"><br>${col.name}</div>`;
+        } else {
+            headerElement.innerHTML = col.name;
+        }
+        headerElement.style.textAlign = 'center';
+        headerElement.style.verticalAlign = 'bottom';
+        if (col.mainLink) {
+            let mainLink = document.createElement('a');
+            mainLink.href = col.mainLink;
+            mainLink.style.textDecoration = 'none';
+            mainLink.appendChild(headerElement);     
+            headers.appendChild(mainLink);     
+        } else {
+            headers.appendChild(headerElement);     
+        }
         row.appendChild(columnElement);
     });
 }
